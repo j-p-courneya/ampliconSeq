@@ -1,0 +1,23 @@
+#!/bin/bash
+#SBATCH --nodes=1 # request one node
+#SBATCH --cpus-per-task=2  # ask for 1 cpu
+#SBATCH --partition=common
+#SBATCH --mem=32G # Maximum amount of memory this job will be given
+#SBATCH --array=1-100%100 #specify how many times you want a job to run
+
+# everything below this line is optional, but are nice to have quality of life things
+#SBATCH --job-name=ampgatk # a nice readable name to give your job so you know what it is when you see it in the queue, instead of just numbers
+#SBATCH --output=gatk.%J.out # tell it to store the output console text to a file called job.<assigned job number>.out
+#SBATCH --error=gatk.%J.err # tell it to store the error messages from the program (if it doesn't write them to normal console output) to a file called job.<assigned job muber>.err
+
+#load  module
+module load java/1.8.0 GenomeAnalysisTK/4.1.9.0
+module load samtools
+
+prefix="$(cat -n $1 | awk -v var=$SLURM_ARRAY_TASK_ID '{if($1==var){print $0}}' | cut -f 2- )"
+
+echo "---> run gatk"
+
+# Haplotypecaller
+gatk --java-options "-Djava.io.tmpdir=./ -Xms16G -Xmx16G -XX:ParallelGCThreads=2" HaplotypeCaller -R VectorBase-50_AaegyptiLVP_AGWG_Genome.fasta -I $prefix.sort.bam -O $prefix.g.vcf.gz -ERC GVCF
+
