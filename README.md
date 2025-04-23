@@ -11,7 +11,7 @@ GenomeAnalysisTK (4.1.9.0)
 VCFtools (0.1.16)
 
 ## Workflow
-To launch the workflow just run the command bellow.
+To launch the workflow just run the command bellow.<br>
 ARG#1 is a list of prefix name of the FASTQ input file.
 ARG#1 is just the name of the run. 
 
