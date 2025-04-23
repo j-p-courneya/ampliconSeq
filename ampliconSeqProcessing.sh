@@ -52,7 +52,7 @@ gatk --java-options "-Djava.io.tmpdir=./ -Xms64G -Xmx64G -XX:ParallelGCThreads=2
 zcat $runName.passQC.tmp.vcf.gz | egrep -v "LOW_QUAL" | bgzip > $runName.passQC.vcf.gz
 vcftools --gzvcf $runName.passQC.vcf.gz --minGQ 30 --minDP 10 --recode-INFO-all --recode --stdout | bgzip > $runName.passQC.GQ30DP10.vcf.gz
 vcftools --gzvcf $runName.passQC.GQ30DP10.vcf.gz --missing-site --stdout | awk '{if($6<0.1){print $1"\t"$2-1"\t"$2}}' > bed
-bedtools intersect -a ../amplicon.loci.bed -b bed -wb | cut -f 5,7 > pos
+bedtools intersect -a amplicon.loci.bed -b bed -wb | cut -f 5,7 > pos
 vcftools --gzvcf $runName.passQC.GQ30DP10.vcf.gz --positions pos --missing-indv --stdout | awk '{if($5<0.1){print $1}}' > keep
 vcftools --gzvcf $runName.passQC.GQ30DP10.vcf.gz --positions pos --keep keep --recode-INFO-all --recode --stdout | bgzip > $runName.passQC.GQ30DP10.lmiss10.imiss10.vcf.gz
 
