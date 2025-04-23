@@ -15,4 +15,4 @@ To launch the workflow just run the command bellow.<br>
 ARG#1 is a list of prefix name of the FASTQ input file.<br>
 ARG#2 is just the name of the run.<br>
 
-bash ampliconProcessing.sh LIST RUN_NAME<br>
+bash ampliconSeqProcessing.sh LIST RUN_NAME<br>
