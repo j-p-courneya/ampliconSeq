@@ -1,0 +1,55 @@
+# ------------------------------
+# Project-safe ignore policy
+# ------------------------------
+
+# 1) Heavy assets (never commit)
+containers/**
+ref/**
+results/**
+logs/**
+work/**
+tmp/**
+.cache/**
+
+# Keep directory placeholders
+!containers/.gitkeep
+!ref/.gitkeep
+!results/.gitkeep
+!logs/.gitkeep
+!work/.gitkeep
+!tmp/.gitkeep
+
+# 2) Config/secrets
+config/*.env
+config/local.*
+.env
+.env.*
+secrets/**
+*.key
+*.pem
+
+# Keep templates/docs
+!config/*.example.env
+!config/README*
+!config/*.md
+
+# 3) Metadata with local absolute paths
+metadata/**
+!metadata/.gitkeep
+!metadata/*.example.tsv
+!metadata/*.example.csv
+!metadata/README*
+!metadata/*.md
+
+# 4) Cluster/job outputs
+slurm-*.out
+slurm-*.err
+*.out
+*.err
+
+# 5) Language/tool noise
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+*~
